@@ -1,15 +1,16 @@
 package Class::Virtual;
 
 use strict;
-use vars qw($VERSION);
-$VERSION = '0.03';
+use vars qw($VERSION @ISA);
+$VERSION = '0.04';
 
 use Carp::Assert;
 use Class::ISA;
 # Class::ISA doesn't export?!
 *self_and_super_path = \&Class::ISA::self_and_super_path;
 
-use base qw(Class::Data::Inheritable);
+use Class::Data::Inheritable;
+@ISA = qw(Class::Data::Inheritable);
 __PACKAGE__->mk_classdata('__Virtual_Methods');
 
 
