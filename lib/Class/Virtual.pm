@@ -4,10 +4,9 @@ use strict;
 use vars qw($VERSION @ISA);
 $VERSION = '0.05';
 
-use Carp::Assert;
+use Carp::Assert qw(DEBUG);  # import only the tiny bit we need so it doesn't
+                             # get inherited.
 use Class::ISA;
-# Class::ISA doesn't export?!
-*self_and_super_path = \&Class::ISA::self_and_super_path;
 
 use Class::Data::Inheritable;
 @ISA = qw(Class::Data::Inheritable);
@@ -160,7 +159,7 @@ sub missing_methods {
     my($class) = shift;
 
     my @vmeths = $class->virtual_methods;
-    my @super_classes = self_and_super_path($class);
+    my @super_classes = Class::ISA::self_and_super_path($class);
     my $vclass = $class->__virtual_base_class;
 
     # Remove everything in the hierarchy beyond, and including,
@@ -168,7 +167,7 @@ sub missing_methods {
     my $sclass;
     do {
         $sclass = pop @super_classes;
-        assert( defined $sclass ) if DEBUG;
+        Carp::Assert::assert( defined $sclass ) if DEBUG;
     } until $sclass eq $vclass;
 
     my @missing = ();
@@ -204,7 +203,7 @@ Michael G Schwern E<lt>schwern@pobox.comE<gt>
 
 =head1 LEGAL
 
-Copyright Michael G Schwern
+Copyright 2000, 2001, 2003, 2004 Michael G Schwern
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

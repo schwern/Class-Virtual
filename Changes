@@ -1,7 +1,9 @@
 Change log for Perl module Class::Virtual
 
 0.05
-    - Added a license.  [rt.cpan.org 8229]
+    - Added a license and copyright.  [rt.cpan.org 8229]
+    - Fixed it so assert and affirm don't leak out from internal use of
+      Carp::Assert [rt.cpan.org 6298]
 
 0.04  Sun Oct 19 22:18:59 PDT 2003
     * Class::Virtually::Abstract was missing a $VERSION
