@@ -2,7 +2,7 @@ package Class::Virtual;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use Class::ISA;
 # Class::ISA doesn't export?!
@@ -45,11 +45,12 @@ Class::Virtual - Base class for virtual base classes.
 
 =head1 DESCRIPTION
 
-This is a base class for implementing virtual base classes.  Kinda
-kooky.  It allows you to explicitly declare what methods are virtual
-and that must be implemented by subclasses.  This might seem silly,
-since your program will halt and catch fire when an unimplemented
-virtual method is hit anyway, but there's some benefits.
+This is a base class for implementing virtual base classes (what some
+people call an abstract class).  Kinda kooky.  It allows you to
+explicitly declare what methods are virtual and that must be
+implemented by subclasses.  This might seem silly, since your program
+will halt and catch fire when an unimplemented virtual method is hit
+anyway, but there's some benefits.
 
 The error message is more informative.  Instead of the usual
 "Can't locate object method" error, you'll get one explaining that a
@@ -118,8 +119,8 @@ sub _mk_virtual_methods {
         # Make sure the method doesn't already exist.
         if( $this_class->can($meth) ) {
             require Carp;
-            Carp::croak "$this_class attempted to declare $meth() virtual ".
-                        "but it appears to already be implemented!";
+            Carp::croak("$this_class attempted to declare $meth() virtual ".
+                        "but it appears to already be implemented!");
         }
 
         # Create a virtual method.
@@ -131,11 +132,11 @@ sub _mk_virtual_methods {
 
             if( $class eq $this_class) {
                 my $caller = caller;
-                Carp::croak "$caller called the virtual base class ".
-                            "$this_class directly!  Use a subclass instead";
+                Carp::croak("$caller called the virtual base class ".
+                            "$this_class directly!  Use a subclass instead");
             }
             else {
-                Carp::croak "$class forgot to implement $meth()";
+                Carp::croak("$class forgot to implement $meth()");
             }
         };
     }
@@ -174,7 +175,7 @@ sub missing_methods {
             CLASS: foreach my $class (@super_classes) {
                 next METHOD if defined &{$class.'::'.$meth};
             }
-        
+
             push @missing, $meth;
         }
     }
@@ -185,6 +186,10 @@ sub missing_methods {
 =pod
 
 =back
+
+=head1 CAVEATS and BUGS
+
+Autoloaded methods are currently not recognized.
 
 
 =head1 AUTHOR
