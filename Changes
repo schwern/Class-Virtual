@@ -1,5 +1,9 @@
 Change log for Perl module Class::Virtual
 
+0.04  Sun Oct 19 22:18:59 PDT 2003
+    * Class::Virtually::Abstract was missing a $VERSION
+    - Using @ISA instead of base.pm to avoid the odd base.pm bug.
+
 0.03  Fri Mar  2 01:33:07 EST 2001
     * Officially distributing Class::Virtually::Abstract
     * Virtual responsibility was leaking across all virtual classes
