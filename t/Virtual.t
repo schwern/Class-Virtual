@@ -14,7 +14,7 @@ my $test_num = 1;
 BEGIN { $| = 1; $^W = 1; }
 END {print "not ok $test_num\n" unless $loaded;}
 print "1..$Total_tests\n";
-use Module::Name;
+use Class::Virtual;
 $loaded = 1;
 ok(1, 'compile');
 ######################### End of black magic.
@@ -51,4 +51,41 @@ sub eqarray  {
 }
 
 # Change this to your # of ok() calls + 1
-BEGIN { $Total_tests = 1 }
+BEGIN { $Total_tests = 7 }
+
+my @vmeths = qw(new foo bar this that);
+my $ok;
+
+package Test::Virtual;
+use base qw(Class::Virtual);
+__PACKAGE__->virtual_methods(@vmeths);
+
+::ok( ::eqarray([sort __PACKAGE__->virtual_methods], [sort @vmeths]),
+    'Declaring virtual methods' );
+
+eval {
+    __PACKAGE__->virtual_methods(qw(this wont work));
+};
+$ok = $@ =~ /^Attempt to reset virtual methods/;
+::ok( $ok,        "Disallow reseting by virtual class" );
+
+
+package Test::This;
+use base qw(Test::Virtual);
+
+::ok( ::eqarray([sort __PACKAGE__->virtual_methods], [sort @vmeths]),
+    'Subclass listing virtual methods');
+::ok( ::eqarray([sort __PACKAGE__->missing_methods], [sort @vmeths]),
+    'Subclass listing missing methods');
+
+*foo = sub { 42 };
+*bar = sub { 23 };
+
+::ok( ::eqarray([sort __PACKAGE__->missing_methods], [sort qw(new this that)]),
+      'Subclass handling some methods');
+
+eval {
+    __PACKAGE__->virtual_methods(qw(this wont work));
+};
+$ok = $@ =~ /^Attempt to reset virtual methods/;
+::ok( $ok,        "Disallow reseting by subclass" );
