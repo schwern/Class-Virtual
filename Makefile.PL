@@ -31,6 +31,7 @@ WriteMakefile(
     PREREQ_PM       => { 
                         Class::Data::Inheritable => 0.02,
                         Class::ISA               => 0.31,
+                        Carp::Assert             => 0.10,
                        },
     'dist'          => { COMPRESS   => 'gzip -9',
                          SUFFIX     => '.gz',

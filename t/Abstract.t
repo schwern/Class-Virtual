@@ -14,7 +14,7 @@ my $test_num = 1;
 BEGIN { $| = 1; $^W = 1; }
 END {print "not ok $test_num\n" unless $loaded;}
 print "1..$Total_tests\n";
-use Class::Virtual;
+use Class::Virtually::Abstract;
 $loaded = 1;
 ok(1, 'compile');
 ######################### End of black magic.
@@ -51,13 +51,13 @@ sub eqarray  {
 }
 
 # Change this to your # of ok() calls + 1
-BEGIN { $Total_tests = 14 }
+BEGIN { $Total_tests = 16 }
 
 my @vmeths = qw(new foo bar this that);
 my $ok;
 
 package Test::Virtual;
-use base qw(Class::Virtual);
+use base qw(Class::Virtually::Abstract);
 __PACKAGE__->virtual_methods(@vmeths);
 
 ::ok( ::eqarray([sort __PACKAGE__->virtual_methods], [sort @vmeths]),
@@ -94,7 +94,7 @@ $ok = $@ =~ /^Attempt to reset virtual methods/;
 
 
 package Test::Virtual::Again;
-use base qw(Class::Virtual);
+use base qw(Class::Virtually::Abstract);
 __PACKAGE__->virtual_methods('bing');
 
 package Test::Again;
@@ -119,25 +119,40 @@ eval {
     Test::This->bing;
 };
 ::ok( $@ =~ /^Can't locate object method "bing" via package "Test::This" at/,
-      'virtual methods not leaking');
+      'virtual methods not leaking');   #')
+
+
+eval {
+    Test::Again->import;
+};
+::ok( $@ =~ /^Class Test::Again must define bing for class Test::Virtual::Again/ );
+
+package Test::More;
+use base qw(Test::Again);
+sub import { 42 }
+
+eval {
+    Test::More->import;
+};
+# ::ok( $@ =~ /^Class Test::More must define bing for class Test::Virtual::Again/ );  # TODO
 
 
 
-###  This test doesn't work and probably never will.
-###
-# package Test::That;
-# use base qw(Test::Virtual);
+package Test::Yet::Again;
+use base qw(Class::Virtually::Abstract);
+__PACKAGE__->virtual_methods('foo');
 
-# # Let's see how things work with an autoloader.
-# use vars qw($AUTOLOAD);
-# sub AUTOLOAD {
-#     if( $AUTOLOAD =~ /(foo|bar)/ ) {
-#         return "Yay!";
-#     }
-#     else {
-#         die "ARrrrrrrrrrrgh!\n";
-#     }
-# }
+sub import {
+    $Test::Yet::Again = 42;
+}
 
-# ::ok( ::eqarray([sort __PACKAGE__->missing_methods], [sort qw(new this that)]),
-#       'Autoloaded methods recognized' );
+
+package Test::Yet;
+use base qw(Test::Yet::Again);
+
+sub foo { 23 }
+
+eval {
+    Test::Yet->import;
+};
+::ok( !$@ and $Test::Yet::Again == 42 );

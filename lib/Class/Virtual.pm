@@ -2,8 +2,9 @@ package Class::Virtual;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.02';
+$VERSION = '0.03';
 
+use Carp::Assert;
 use Class::ISA;
 # Class::ISA doesn't export?!
 *self_and_super_path = \&Class::ISA::self_and_super_path;
@@ -24,7 +25,7 @@ Class::Virtual - Base class for virtual base classes.
   package My::Virtual::Idaho;
   use base qw(Class::Virtual);
 
-  __PACKAGE__->virtual_methods(new foo bar this that);
+  __PACKAGE__->virtual_methods(qw(new foo bar this that));
 
 
   package My::Private::Idaho;
@@ -109,9 +110,9 @@ sub _mk_virtual_methods {
     my($this_class, @methods) = @_;
 
     $this_class->__Virtual_Methods(\@methods);
-    
+
     # private method to return the virtual base class
-    *__virtual_base_class = sub {
+    *{$this_class.'::__virtual_base_class'} = sub {
         return $this_class;
     };
 
@@ -124,7 +125,7 @@ sub _mk_virtual_methods {
         }
 
         # Create a virtual method.
-        *{$meth} = sub {
+        *{$this_class.'::'.$meth} = sub {
             my($self) = shift;
             my($class) = ref $self || $self;
 
@@ -140,7 +141,7 @@ sub _mk_virtual_methods {
             }
         };
     }
-}    
+}
 
 
 =pod
@@ -165,6 +166,7 @@ sub missing_methods {
     my $sclass;
     do {
         $sclass = pop @super_classes;
+        assert( defined $sclass ) if DEBUG;
     } until $sclass eq $vclass;
 
     my @missing = ();
@@ -189,12 +191,18 @@ sub missing_methods {
 
 =head1 CAVEATS and BUGS
 
-Autoloaded methods are currently not recognized.
+Autoloaded methods are currently not recognized.  I have no idea
+how to solve this.
 
 
 =head1 AUTHOR
 
-Michael G Schwern <schwern@pobox.com>
+Michael G Schwern E<lt>schwern@pobox.comE<gt>
+
+
+=head1 SEE ALSO
+
+L<Class::Virtually::Abstract>
 
 =cut
 
