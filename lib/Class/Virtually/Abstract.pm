@@ -1,7 +1,9 @@
 package Class::Virtually::Abstract;
 
+require Class::Virtual;
+@ISA = qw(Class::Virtual);
+
 use strict;
-use base qw(Class::Virtual);
 use Carp::Assert;
 
 use vars qw(%Registered $VERSION);
