@@ -4,7 +4,8 @@ use strict;
 use base qw(Class::Virtual);
 use Carp::Assert;
 
-use vars qw(%Registered);
+use vars qw(%Registered $VERSION);
+$VERSION = '0.02';
 
 {
     no strict 'refs';
@@ -105,8 +106,7 @@ Because this relies on import() it is important that your classes are
 B<use>d instead of B<require>d.  This is a problem, and I'm trying to
 figure a way around it.
 
-Also, if a subclass defines its own import() routine (why would a
-class need to export stuff?  I've done it)
+Also, if a subclass defines its own import() routine (I've done it)
 Class::Virtually::Abstract's compile-time checking is defeated.
 
 Got to think of a better way to do this besides import().
@@ -114,7 +114,7 @@ Got to think of a better way to do this besides import().
 
 =head1 AUTHOR
 
-Original idea from Ben Tilly's AbstractClass
+Original idea and code from Ben Tilly's AbstractClass
 http://www.perlmonks.org/index.pl?node_id=44300&lastnode_id=45341
 
 Embraced and Extended by Michael G Schwern E<lt>schwern@pobox.comE<gt>
