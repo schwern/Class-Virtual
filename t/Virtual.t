@@ -51,7 +51,7 @@ sub eqarray  {
 }
 
 # Change this to your # of ok() calls + 1
-BEGIN { $Total_tests = 7 }
+BEGIN { $Total_tests = 8 }
 
 my @vmeths = qw(new foo bar this that);
 my $ok;
@@ -80,6 +80,8 @@ use base qw(Test::Virtual);
 
 *foo = sub { 42 };
 *bar = sub { 23 };
+
+::ok( defined &foo && defined &bar );
 
 ::ok( ::eqarray([sort __PACKAGE__->missing_methods], [sort qw(new this that)]),
       'Subclass handling some methods');
