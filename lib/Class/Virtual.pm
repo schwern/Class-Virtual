@@ -2,7 +2,7 @@ package Class::Virtual;
 
 use strict;
 use vars qw($VERSION @ISA);
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 use Carp::Assert;
 use Class::ISA;
@@ -82,9 +82,10 @@ This is an accessor to the list of virtual_methods.  Virtual base
 classes will declare their list of virtual methods.  Subclasses will
 look at them.  Once the virtual methods are set they cannot be undone.
 
-XXX I'm tempted to make it possible for the subclass to override the
-XXX virtual methods, perhaps add to them.  Too hairy to think about for
-XXX 0.01.
+=for notes
+I'm tempted to make it possible for the subclass to override the
+virtual methods, perhaps add to them.  Too hairy to think about for
+0.01.
 
 =cut
 
@@ -199,6 +200,16 @@ how to solve this.
 =head1 AUTHOR
 
 Michael G Schwern E<lt>schwern@pobox.comE<gt>
+
+
+=head1 LEGAL
+
+Copyright Michael G Schwern
+
+This program is free software; you can redistribute it and/or 
+modify it under the same terms as Perl itself.
+
+See L<http://www.perl.com/perl/misc/Artistic.html>
 
 
 =head1 SEE ALSO

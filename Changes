@@ -1,5 +1,8 @@
 Change log for Perl module Class::Virtual
 
+0.05
+    - Added a license.  [rt.cpan.org 8229]
+
 0.04  Sun Oct 19 22:18:59 PDT 2003
     * Class::Virtually::Abstract was missing a $VERSION
     - Using @ISA instead of base.pm to avoid the odd base.pm bug.
