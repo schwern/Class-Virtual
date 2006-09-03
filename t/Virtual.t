@@ -71,7 +71,7 @@ eval {
 eval {
     Test::This->bing;
 };
-::like( $@, qr/^Can't locate object method "bing" via package "Test::This" at/,
+::like( $@, qr/^Can't locate object method "bing" via package "Test::This"/,
       'virtual methods not leaking');
 
 

@@ -1,4 +1,5 @@
-Change log for Perl module Class::Virtual
+0.06
+    - Minor test fix for slightly different perldiag. [rt.cpan.org 11647]
 
 0.05  Fri Dec 31 01:38:29 EST 2004
     - Added a license and copyright.  [rt.cpan.org 8229]
