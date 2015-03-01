@@ -1,3 +1,9 @@
+0.07  Sun Mar  1 12:32:44 PST 2015
+    Misc
+    * Update metadata to point at Github.
+    * Discourage use of this module, there are better solutions.
+    * Clarify the license link in the documentation.
+
 0.06  Sun Sep  3 18:06:03 EDT 2006
     - Minor test fix for slightly different perldiag. [rt.cpan.org 11647]
 

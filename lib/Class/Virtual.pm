@@ -2,7 +2,7 @@ package Class::Virtual;
 
 use strict;
 use vars qw($VERSION @ISA);
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 use Carp::Assert qw(DEBUG);  # import only the tiny bit we need so it doesn't
                              # get inherited.

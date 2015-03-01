@@ -6,7 +6,7 @@ require Class::Virtual;
 use strict;
 
 use vars qw(%Registered $VERSION);
-$VERSION = '0.03';
+$VERSION = '0.07';
 
 {
     no strict 'refs';
