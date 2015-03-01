@@ -46,6 +46,10 @@ Class::Virtual - Base class for virtual base classes.
 
 =head1 DESCRIPTION
 
+B<THIS MODULE IS DISCOURAGED!> Avoid using it for new code.  There's
+nothing wrong with it, but there are better ways to accomplish the
+same thing.  Look into the L<Moose> ecosystem.
+
 This is a base class for implementing virtual base classes (what some
 people call an abstract class).  Kinda kooky.  It allows you to
 explicitly declare what methods are virtual and that must be
