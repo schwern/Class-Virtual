@@ -203,12 +203,12 @@ Michael G Schwern E<lt>schwern@pobox.comE<gt>
 
 =head1 LEGAL
 
-Copyright 2000, 2001, 2003, 2004 Michael G Schwern
+Copyright 2000-2015 Michael G Schwern
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.
 
-See L<http://www.perl.com/perl/misc/Artistic.html>
+See L<http://dev.perl.org/licenses/>
 
 
 =head1 SEE ALSO
