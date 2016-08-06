@@ -1,11 +1,11 @@
 package Class::Virtually::Abstract;
 
+use strict;
+use warnings;
+use vars qw(%Registered $VERSION @ISA);
+
 require Class::Virtual;
 @ISA = qw(Class::Virtual);
-
-use strict;
-
-use vars qw(%Registered $VERSION);
 $VERSION = '0.07';
 
 {
@@ -31,6 +31,8 @@ $VERSION = '0.07';
             # We can't use a closure here, SUPER wouldn't work right. :(
             eval <<"IMPORT";
             package $base_class;
+
+            no warnings 'redefine';
 
             sub import {
                 my \$class = shift;
