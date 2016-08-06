@@ -1,7 +1,15 @@
+0.08  Sat Aug  6 13:07:36 PDT 2016
+    Kwalitee
+    * Turn on and normalize strict and warnings. (Denis Ibaev) [github #3]
+
+    Distribution
+    * Added metacpan as the homepage
+    * Now using Travis and AppVeyor CI
+
 0.07  Sun Mar  1 12:32:44 PST 2015
     Misc
-    * Update metadata to point at Github.
-    * Discourage use of this module, there are better solutions.
+    * Update metadata to point at Github. [github #2]
+    * Discourage use of this module, there are better solutions. [github #1]
     * Clarify the license link in the documentation.
 
 0.06  Sun Sep  3 18:06:03 EDT 2006

@@ -1,3 +1,5 @@
+.travis.yml
+appveyor.yml
 Changes
 lib/Class/Virtual.pm
 lib/Class/Virtually/Abstract.pm

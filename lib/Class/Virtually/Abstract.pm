@@ -6,7 +6,7 @@ use vars qw(%Registered $VERSION @ISA);
 
 require Class::Virtual;
 @ISA = qw(Class::Virtual);
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 {
     no strict 'refs';
