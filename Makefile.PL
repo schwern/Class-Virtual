@@ -41,6 +41,7 @@ WriteMakefile(
 
     META_MERGE          => {
         resources => {
+            homepage   => 'https://metacpan.org/release/Class-Virtual',
             bugtracker => 'https://github.com/schwern/Class-Virtual/issues',
             repository => 'https://github.com/schwern/Class-Virtual',
         }
