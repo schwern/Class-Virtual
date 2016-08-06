@@ -19,9 +19,6 @@ $VERSION = '0.07';
 
             my($has_orig_import) = 0;
 
-            # Shut up "subroutine import redefined"
-            local $^W = 0;
-
             if( defined &{$base_class.'::import'} ) {
                 # Divert the existing import method.
                 $has_orig_import = 1;
